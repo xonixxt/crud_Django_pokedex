@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resultado da Busca</title>
+    <style>
+      body {
+        background-image: url("https://img.odcdn.com.br/wp-content/uploads/2025/03/pokemon-tipo-1920x1080.jpg");
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .result-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 400px;
+      }
+      .result-card h1 {
+        color: #e3350d;
+        text-transform: capitalize;
+      }
+      .result-card img {
+        width: 150px;
+        height: 150px;
+        margin: 15px 0;
+      }
+      .result-card p {
+        font-size: 1.1em;
+      }
+      .error {
+        color: #d8000c;
+      }
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #3b4cca;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-card">
+      {% if pokemon %}
+      <h1>{{ pokemon.id }} - {{ pokemon.nome }}</h1>
+      <img src="{{ pokemon.sprite_url }}" alt="Imagem de {{ pokemon.nome }}" />
+      <p>
+        <strong>Tipos:</strong>
+        {% for tipo in pokemon.tipos %} {{ tipo|title }} {% endfor %}
+      </p>
+      <p><strong>Altura:</strong> {{ pokemon.altura }} m</p>
+      <p><strong>Peso:</strong> {{ pokemon.peso }} kg</p>
+      <p><strong>Habilidades:</strong></p>
+      <ul>
+        {% for habilidade in pokemon.habilidades %}
+        <li>{{ habilidade|title }}</li>
+        {% endfor %}
+      </ul>
+
+      {% elif error %}
+      <h1 class="error">Erro na Busca</h1>
+      <p>{{ error }}</p>
+      {% endif %}
+
+      <a href="{% url 'home' %}">Fazer Nova Busca</a>
+    </div>
+  </body>
+</html>

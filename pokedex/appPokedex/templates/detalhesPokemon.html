@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detalhes do Pokémon</title>
+  </head>
+  <body>
+    <h1>Resultado da Pesquisa</h1>
+
+    {% if pokemon %}
+    <h2>#{{ pokemon.id }} - {{ pokemon.name|title }}</h2>
+
+    <h3>Detalhes:</h3>
+    <ul>
+      <li><strong>Altura:</strong> {{ pokemon.height }} m</li>
+      <li><strong>Peso:</strong> {{ pokemon.weight }} kg</li>
+      <li>
+        <strong>Tipos:</strong>
+        <ul>
+          {% for type in pokemon.types %}
+          <li>{{ type|title }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+
+    {% elif error %}
+    <p style="color: red">{{ error }}</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}">Fazer nova pesquisa</a>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Pokemons</title>
+    <style>
+      body {
+        background-image: url("https://img.odcdn.com.br/wp-content/uploads/2025/03/pokemon-tipo-1920x1080.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+        color: white;
+      }
+
+      h1,
+      h2 {
+        text-shadow: 2px 2px 4px #000000;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-top: 10px;
+        margin-right: 10px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9em;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      .update-btn {
+        background-color: #007bff;
+      }
+      .delete-btn {
+        background-color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Minha Pokédex</h1>
+
+    <ul>
+      {% for pokemon in pokemons %}
+      <li>
+        <h2>{{ pokemon.nome|title }}</h2>
+
+        {% if pokemon.imagemUrl %}
+        <img src="{{ pokemon.imagemUrl }}" alt="Imagem de {{ pokemon.nome }}" />
+        {% else %}
+        <p>(Sem imagem)</p>
+        {% endif %}
+        <p>Tipo: {{ pokemon.tipo }}</p>
+        <p>Peso: {{ pokemon.peso }}</p>
+        <p>Altura: {{ pokemon.altura }}</p>
+
+        <div>
+          <a
+            href="{% url 'atualizarPokemon' pokemon.id %}"
+            class="btn update-btn"
+            >Atualizar</a
+          >
+          <a href="{% url 'deletarPokemon' pokemon.id %}" class="btn delete-btn"
+            >Deletar</a
+          >
+        </div>
+
+        <hr />
+      </li>
+      {% empty %}
+      <li>Sua Pokédex está vazia.</li>
+      {% endfor %}
+    </ul>
+
+    <a
+      href="{% url 'criarPokemons' %}"
+      class="btn"
+      style="background-color: #d7922bff"
+      >Capturar Novo Pokémon</a
+    >
+    <a href="{% url 'home' %}" class="btn" style="background-color: #6c757d"
+      >Voltar para a Página Inicial</a
+    >
+  </body>
+</html>

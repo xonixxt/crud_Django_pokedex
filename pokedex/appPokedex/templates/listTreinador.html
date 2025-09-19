@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Treinadores</title>
+    <style>
+      body {
+        background-image: url("https://img.odcdn.com.br/wp-content/uploads/2025/03/pokemon-tipo-1920x1080.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+      }
+      .content-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px 40px;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        color: #e3350d;
+        text-align: center;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9em;
+      }
+      .update-btn {
+        background-color: #007bff;
+      }
+      .delete-btn {
+        background-color: #dc3545;
+      }
+      .nav-links {
+        margin-top: 30px;
+        text-align: center;
+      }
+      .nav-links a {
+        background-color: #28a745;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-container">
+      <h1>Lista de Treinadores</h1>
+
+      <ul>
+        {% for treinador in treinadores %}
+        <li>
+          <span>{{ treinador.nome|title }}</span>
+          <div>
+            <a
+              href="{% url 'atualizarTreinador' treinador.id %}"
+              class="btn update-btn"
+              >Atualizar</a
+            >
+            <a
+              href="{% url 'deletarTreinador' treinador.id %}"
+              class="btn delete-btn"
+              >Deletar</a
+            >
+          </div>
+        </li>
+        {% empty %}
+        <li>Nenhum treinador cadastrado ainda.</li>
+        {% endfor %}
+      </ul>
+
+      <div class="nav-links">
+        <a href="{% url 'criarTreinador' %}" class="btn"
+          >Cadastrar Novo Treinador</a
+        >
+        <a href="{% url 'home' %}" class="btn" style="background-color: #6c757d"
+          >Voltar para a Página Inicial</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

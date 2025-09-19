@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmar Exclusão de Pokémon</title>
+    <style>
+      body {
+        background-image: url("https://img.odcdn.com.br/wp-content/uploads/2025/03/pokemon-tipo-1920x1080.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .confirm-box {
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+      }
+      .confirm-box h1 {
+        color: #dc3545;
+        margin-top: 0;
+      }
+      .confirm-box p {
+        font-size: 1.2em;
+        color: #333;
+      }
+      .buttons-container {
+        margin-top: 30px;
+      }
+      .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: opacity 0.2s ease;
+      }
+      .btn:hover {
+        opacity: 0.85;
+      }
+      .delete-btn {
+        background-color: #dc3545;
+      }
+      .cancel-btn {
+        background-color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="confirm-box">
+      <h1>Confirmar Exclusão</h1>
+      <p>
+        Você tem certeza que deseja deletar o Pokémon
+        <strong>{{ pokemon.nome|title }}</strong> da sua Pokédex?
+      </p>
+      <p style="font-size: 0.9em; color: #555">
+        Esta ação não pode ser desfeita.
+      </p>
+
+      <form method="POST" class="buttons-container">
+        {% csrf_token %}
+
+        <a href="{% url 'listarPokemons' %}" class="btn cancel-btn">Cancelar</a>
+
+        <button type="submit" class="btn delete-btn">Sim, Deletar</button>
+      </form>
+    </div>
+  </body>
+</html>
